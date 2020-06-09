@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FileMover.Log;
+using System;
 using System.IO;
 
 namespace FileMover
@@ -9,19 +10,21 @@ namespace FileMover
         private static string outputDirectory = @"C:\Users\SrinivasRao\Downloads\Outputs";
         private static string[] extensions = new string[] { ".m3u8" };
         private static bool moveFolder = true;
+        private static Logger logger = new Logger();
 
         static void Main(string[] args)
         {
             try
             {
-                Console.WriteLine("Starting the file mover");
-
                 Console.WriteLine("Scanning files started");
+                logger.Log("Scanning files started");
                 foreach (var extension in extensions)
                 {
                     var filePaths = Directory.GetFiles(scanDirectory, $"*{extension}*");
+                    logger.Log($"\t Found below files with {extension} extension");
                     foreach (var filePath in filePaths)
                     {
+                        logger.Log($"\t \t Moving file : {filePath}");
                         var fileName = Path.GetFileName(filePath);
                         var outputFilePath = Path.Combine(outputDirectory, fileName);
                         File.Move(filePath, outputFilePath);
@@ -32,20 +35,24 @@ namespace FileMover
                             var outputPath = Path.Combine(outputDirectory, fileNameWithContents);
                             if (Directory.Exists(sourceFolderPath))
                             {
+                                logger.Log($"\t \t Moving folder : {sourceFolderPath}");
                                 Directory.Move(sourceFolderPath, outputPath);
                             }
                         }
                     }
                 }
-
-                Console.WriteLine("Completed moving files, press enter to exit");
-                Console.ReadLine();
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error occurred in the program : {ex.Message}");
+                var message = $"Error occurred in the program : {ex.Message}";
+                Console.WriteLine(message);
+                logger.Log(message);
             }
-            
+
+            Console.WriteLine("Completed moving files, press enter to exit");
+            logger.Log("Completed moving files, press enter to exit");
+            Console.ReadLine();
+
         }
     }
 }
