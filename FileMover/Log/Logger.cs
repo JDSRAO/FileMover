@@ -15,15 +15,17 @@ namespace FileMover.Log
         {
             FileName = $"{Guid.NewGuid()}.log";
             FilePath = Path.Combine(Directory.GetCurrentDirectory(),"logs", FileName);
-            Directory.CreateDirectory(Path.GetDirectoryName(FilePath));
-            File.Create(FilePath);
+            Directory.CreateDirectory(Path.GetDirectoryName(FilePath));            
         }
 
         public void Log(string text)
         {
             text = $"{DateTime.Now} : {text}";
-            File.AppendAllText(FilePath, text, Encoding.UTF8);
+            using (var writer = new StreamWriter(FilePath, true, Encoding.UTF8))
+            {
+                writer.WriteLine(text);
+                writer.Close();
+            }
         }
-
     }
 }
