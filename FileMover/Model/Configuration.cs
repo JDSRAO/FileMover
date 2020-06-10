@@ -19,11 +19,6 @@ namespace FileMover.Model
             var filePath = Path.Combine(Directory.GetCurrentDirectory(), "config.json");
             var configText = File.ReadAllText(filePath);
             return JsonConvert.DeserializeObject<Configuration>(configText);
-            //ScanDirectory = config.ScanDirectory;
-            //OutputDirectory = config.OutputDirectory;
-            //Extensions = config.Extensions;
-            //OnlyLog = config.OnlyLog;
-            //MoveFolder = config.MoveFolder;
         }
     }
 }

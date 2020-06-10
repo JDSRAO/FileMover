@@ -21,6 +21,7 @@ namespace FileMover.Log
         public void Log(string text)
         {
             text = $"{DateTime.Now} : {text}";
+            Console.WriteLine(text);
             using (var writer = new StreamWriter(FilePath, true, Encoding.UTF8))
             {
                 writer.WriteLine(text);
