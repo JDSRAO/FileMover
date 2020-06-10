@@ -10,6 +10,7 @@ namespace FileMover
         private static string outputDirectory = @"C:\Users\SrinivasRao\Downloads\Outputs";
         private static string[] extensions = new string[] { ".m3u8" };
         private static bool moveFolder = true;
+        private static bool onlyLog = true;
         private static Logger logger = new Logger();
 
         static void Main(string[] args)
@@ -27,7 +28,10 @@ namespace FileMover
                         logger.Log($"\t \t Moving file : {filePath}");
                         var fileName = Path.GetFileName(filePath);
                         var outputFilePath = Path.Combine(outputDirectory, fileName);
-                        File.Move(filePath, outputFilePath);
+                        if(!onlyLog)
+                        {
+                            File.Move(filePath, outputFilePath);
+                        }
                         if (moveFolder)
                         {
                             var fileNameWithContents = $"{fileName}_contents";
@@ -36,7 +40,10 @@ namespace FileMover
                             if (Directory.Exists(sourceFolderPath))
                             {
                                 logger.Log($"\t \t Moving folder : {sourceFolderPath}");
-                                Directory.Move(sourceFolderPath, outputPath);
+                                if (!onlyLog)
+                                {
+                                    Directory.Move(sourceFolderPath, outputPath);
+                                }
                             }
                         }
                     }
