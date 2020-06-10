@@ -10,18 +10,20 @@ namespace FileMover.Model
     {
         public string ScanDirectory { get; set; }
         public string OutputDirectory { get; set; }
+        public bool MoveFolder { get; set; }
         public string[] Extensions { get; set; }
         public bool OnlyLog { get; set; }
 
-        public Configuration()
+        public static Configuration GetConfiguration()
         {
             var filePath = Path.Combine(Directory.GetCurrentDirectory(), "config.json");
             var configText = File.ReadAllText(filePath);
-            var config = JsonConvert.DeserializeObject<Configuration>(configText);
-            ScanDirectory = config.ScanDirectory;
-            OutputDirectory = config.OutputDirectory;
-            Extensions = config.Extensions;
-            OnlyLog = config.OnlyLog;
+            return JsonConvert.DeserializeObject<Configuration>(configText);
+            //ScanDirectory = config.ScanDirectory;
+            //OutputDirectory = config.OutputDirectory;
+            //Extensions = config.Extensions;
+            //OnlyLog = config.OnlyLog;
+            //MoveFolder = config.MoveFolder;
         }
     }
 }

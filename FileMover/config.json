@@ -1,3 +1,9 @@
 {
-
+  "scanDirectory": "C:\\Users\\SrinivasRao\\Downloads\\Temp soft",
+  "outputDirectory": "C:\\Users\\SrinivasRao\\Downloads\\Outputs",
+  "moveFolder": true,
+  "onlyLog": true,
+  "extensions": [
+    ".m3u8"
+  ]
 }
