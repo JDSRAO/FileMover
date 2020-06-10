@@ -24,7 +24,7 @@ namespace FileMover
                 foreach (var extension in config.Extensions)
                 {
                     var filePaths = Directory.GetFiles(config.ScanDirectory, $"*{extension}*");
-                    var message = (filePaths.Length == 0 ? $"No files found with extension : {extension}" : $"Found below files with extension : {extension}");
+                    var message = (filePaths.Length == 0 ? $"No files found with extension : {extension}" : $"Found {filePaths.Length} files with extension : {extension}");
                     logger.Log(message);
                     foreach (var filePath in filePaths)
                     {
